@@ -77,6 +77,20 @@ const seedBook=()=>{
 
 }
 
+//bookCollection();
+app.get("/books", getFavouriteBooks);
+function getFavouriteBooks (req, res){
+  let {email}= req.query;
+
+  reFormSchema.myUserModel.find({email : email} ,(error ,userData)=>{
+    if(error){
+      res.send('book not found ');
+    }else{
+      res.send(userData[0].books);
+    }
+  })
+}
+
 //seedBook() ;
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
 
